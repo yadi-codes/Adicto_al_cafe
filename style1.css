@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: small;
+    
+}
+body,html{
+    height: 105%;
+    margin: 0;
+}
+.mainheading{
+    text-align: center;
+    font-size: x-large;
+    font-family: "Pacifico", serif;
+    font-style:oblique;
+}
+.address,
+.input{
+  overflow: hidden;
+}
+.bg {
+    background-image: url(cafe.jpeg);
+    height: 150%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 100px 100px 100px 100px;
+}
+.text {
+    font-size: medium;
+    background-color: rgba(237, 215, 183, 0.91);
+    padding: 5px 20px 15px 40px;
+    border: 7px;
+    width: 80%;
+    border-radius: 6px;
+    box-shadow: 5cm;
+    border-color: #c1f7c6;
+    margin-top:0px;
+    margin-left: 130px;
+    margin-right: 160px;
+}
+.name {
+    margin-right: 20px !important;
+}
+
+fieldset{
+    align-items:center;
+    background-color: rgba(255, 127, 80, 0.496);
+}
+input[type="submit"]{
+    
+    width: 80%;
+    background-color: rgba(154, 86, 37, 0.747);
+    border: none;
+    cursor: pointer;
+    padding: 12px 20px;
+    align-items: center;
+    width: 900px;
+
+}
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="date"]{
+    align-items: center;
+    margin-right: 15px;
+    border-radius: 5px;
+    border: 1px solid rgb(77, 108, 164);
+    width:900px;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
