@@ -19,7 +19,7 @@ body,html{
   overflow: hidden;
 }
 .bg {
-    background-image: url(cafe.jpeg);
+    background-image: url(images/cafe.jpeg);
     height: 150%;
     background-position: center;
     background-repeat: no-repeat;
