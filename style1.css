@@ -2,73 +2,100 @@
     box-sizing: border-box;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: small;
-    
 }
-body,html{
-    height: 105%;
+
+body, html {
+    height: 100%;
     margin: 0;
 }
-.mainheading{
+
+.mainheading {
     text-align: center;
     font-size: x-large;
     font-family: "Pacifico", serif;
-    font-style:oblique;
+    font-style: oblique;
 }
+
 .address,
-.input{
-  overflow: hidden;
+.input {
+    overflow: hidden;
 }
+
 .bg {
     background-image: url(images/cafe.jpeg);
-    height: 150%;
+    min-height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 100px 100px 100px 100px;
+    padding: 100px;
 }
+
 .text {
     font-size: medium;
     background-color: rgba(237, 215, 183, 0.91);
-    padding: 5px 20px 15px 40px;
-    border: 7px;
+    padding: 20px;
+    border: 7px solid #6940422f;
     width: 80%;
     border-radius: 6px;
-    box-shadow: 5cm;
-    border-color: #c1f7c6;
-    margin-top:0px;
-    margin-left: 130px;
-    margin-right: 160px;
-}
-.name {
-    margin-right: 20px !important;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
 }
 
-fieldset{
-    align-items:center;
-    background-color: rgba(255, 127, 80, 0.496);
-}
-input[type="submit"]{
-    
-    width: 80%;
-    background-color: rgba(154, 86, 37, 0.747);
-    border: none;
-    cursor: pointer;
-    padding: 12px 20px;
+fieldset {
     align-items: center;
-    width: 900px;
-
+    background-color: rgba(255, 127, 80, 0.496);
+    padding: 10px;
+    border-radius: 5px;
 }
+
+/* Input fields */
 input[type="text"],
 input[type="email"],
 input[type="number"],
 input[type="password"],
-input[type="date"]{
-    align-items: center;
-    margin-right: 15px;
+input[type="date"] {
+    display: block;
+    width: 100%;
+    max-width: 900px;
     border-radius: 5px;
     border: 1px solid rgb(77, 108, 164);
-    width:900px;
-    padding-bottom: 10px;
-    margin-bottom: 25px;
+    padding: 8px;
+    margin-bottom: 15px;
 }
 
+/* Submit button */
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    background-color: rgba(154, 86, 37, 0.747);
+    border: none;
+    cursor: pointer;
+    padding: 12px 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: rgba(154, 86, 37, 0.9);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .text {
+        width: 95%;
+        padding: 15px;
+    }
+
+    input[type="submit"],
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    input[type="date"] {
+        max-width: 100%;
+    }
+}
