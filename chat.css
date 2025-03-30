@@ -17,11 +17,11 @@ body {
 
 nav {
     background-color: beige;
-    border-radius: 5px;
+    border-radius: 3px;
     position: sticky;
     top: 0;
     width: 100%;
-    padding: 8px 15px;
+    padding: 1px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -140,8 +140,24 @@ article {
 
 #reviews img {
     width: 180px;
-}footer {
-    background-color: #2c2c2c;
+}
+.menu-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #b492cb;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.menu-btn:hover {
+    background-color: #b96b9f;
+}
+
+footer {
+    background-color: #2c2c2c9a;
     color: white;
     text-align: center;
     padding: 20px 0;

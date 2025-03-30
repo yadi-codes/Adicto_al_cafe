@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="menu-header">
+        <h1>Our Menu</h1>
+        <a href="index.html">← Back to Home</a>
+    </header>
+
+    <!-- Menu Filter Buttons -->
+    <div class="menu">
+        <button class="filter-btn" data-category="all">All</button>
+        <button class="filter-btn" data-category="coffee">Coffee</button>
+        <button class="filter-btn" data-category="tea">Tea</button>
+        <button class="filter-btn" data-category="dessert">Desserts</button>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="menu-items">
+        <div class="item" data-category="coffee">
+            <img src="images/espresso.jpg" alt="Espresso">
+            <h3>Espresso</h3>
+            <p>Rich and strong shot of espresso.</p>
+            <span class="price">$10.99</span>
+            <button class="add-to-cart" data-name="Espresso" data-price="10.99">Add to Cart</button>
+        </div>
+    
+        <div class="item" data-category="coffee">
+            <img src="images/cappuccino.jpg" alt="Cappuccino">
+            <h3>Cappuccino</h3>
+            <p>Creamy cappuccino with frothy milk.</p>
+            <span class="price">$12.99</span>
+            <button class="add-to-cart" data-name="Cappuccino" data-price="12.99">Add to Cart</button>
+        </div>
+    
+        <div class="item" data-category="tea">
+            <img src="images/green-tea.jpg" alt="Green Tea">
+            <h3>Green Tea</h3>
+            <p>Refreshing and healthy green tea.</p>
+            <span class="price">$8.99</span>
+            <button class="add-to-cart" data-name="Green Tea" data-price="8.99">Add to Cart</button>
+        </div>
+    
+        <div class="item" data-category="tea">
+            <img src="images/hibiscus-tea.jpg" alt="Hibiscus Iced Tea">
+            <h3>Hibiscus Iced Tea</h3>
+            <p>Sweet and tangy iced hibiscus tea.</p>
+            <span class="price">$9.99</span>
+            <button class="add-to-cart" data-name="Hibiscus Iced Tea" data-price="9.99">Add to Cart</button>
+        </div>
+    
+        <div class="item" data-category="dessert">
+            <img src="images/cheesecake.jpg" alt="Cheesecake">
+            <h3>Cheesecake</h3>
+            <p>Rich and creamy cheesecake.</p>
+            <span class="price">$14.99</span>
+            <button class="add-to-cart" data-name="Cheesecake" data-price="14.99">Add to Cart</button>
+        </div>
+    
+        <div class="item" data-category="dessert">
+            <img src="images/donut.jpg" alt="Donut">
+            <h3>Donut</h3>
+            <p>Soft and delicious glazed donut.</p>
+            <span class="price">$7.99</span>
+            <button class="add-to-cart" data-name="Donut" data-price="7.99">Add to Cart</button>
+        </div>
+    
+        <!-- Bestseller Items -->
+        <div class="item bestseller" data-category="coffee">
+            <img src="images/Cold brew black.webp" alt="Cold Black Coffee">
+            <h3>Cold Black Coffee</h3>
+            <p>Refreshing cold brew coffee.</p>
+            <span class="price">$10.99</span>
+            <button class="add-to-cart" data-name="Cold Black Coffee" data-price="10.99">Add to Cart</button>
+        </div>
+    
+        <div class="item bestseller" data-category="tea">
+            <img src="images/pinkk drink (1).jpg" alt="Strawberry Drink">
+            <h3>Strawberry Drink</h3>
+            <p>Delicious pink strawberry delight.</p>
+            <span class="price">$14.99</span>
+            <button class="add-to-cart" data-name="Strawberry Drink" data-price="14.99">Add to Cart</button>
+        </div>
+    </div>
+
+
+</body>
+</html>

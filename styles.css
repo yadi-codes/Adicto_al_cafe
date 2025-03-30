@@ -1,0 +1,157 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4ece1;
+    text-align: center;
+}
+
+
+/* Header */
+header {
+    background-color: #6F4E37;
+    color: white;
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+.menu-header {
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed white;
+    display: inline-block;
+    position: relative;
+}
+.menu-header h1 {
+    font-size: 2.5rem;
+    animation: fadeSlide 1s ease-in-out;
+}
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Filter Buttons */
+.menu {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 12px 18px;
+    border: none;
+    background-color: #A67B5B;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #8B5E3B;
+}
+
+/* Menu Items Grid */
+.menu-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 30px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Individual Item Styling */
+.item {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    text-align: center;
+    max-width: 170px;
+    margin: auto;
+}
+
+.item:hover {
+    transform: translateY(-5px);
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.item h3 {
+    font-size: 16px;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #6F4E37;
+}
+
+.item p {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.item .price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #A67B5B;
+}
+/* Styling for Add to Cart Buttons */
+.add-to-cart {
+    background-color: #868ab8; /* Warm orange color */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.add-to-cart:hover {
+    background-color: #906be89a; /* Slightly darker on hover */
+    transform: scale(1.05);
+}
+
+.add-to-cart:active {
+    background-color: #715847;
+    transform: scale(0.95);
+}
+
