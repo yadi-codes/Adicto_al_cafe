@@ -140,11 +140,63 @@ article {
 
 #reviews img {
     width: 180px;
+}footer {
+    background-color: #2c2c2c;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
 }
 
-footer {
-    padding: 15px;
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px;
 }
+
+.footer-section {
+    flex: 1;
+    margin: 10px;
+    min-width: 200px;
+}
+
+.footer-section h4 {
+    margin-bottom: 10px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 5px 0;
+}
+
+.footer-section a {
+    color: #f8b400;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    margin-top: 15px;
+    font-size: 14px;
+}
+.social-icons a {
+    color: white;
+    font-size: 24px;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #f8b400;
+}
+
 
 @media (max-width: 768px) {
     h1 {
