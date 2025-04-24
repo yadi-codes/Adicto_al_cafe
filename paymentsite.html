@@ -1,58 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>paymentsite1</title>
-    <link href="style1.css" rel="stylesheet"></a>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>paymentsite1</title>
+  <link href="style1.css" rel="stylesheet" />
+  <style>
+    span { color: red; font-size: 14px; }
+    input, textarea { margin-bottom: 5px; }
+  </style>
+  <script>
+    function validateForm(event) {
+      event.preventDefault();
+
+      let valid = true;
+
+      // Get values
+      const firstName = document.getElementById("first_name").value.trim();
+      const lastName = document.getElementById("last_name").value.trim();
+      const cardNumber = document.getElementById("card_number").value.trim();
+      const expDate = document.getElementById("exp_date").value.trim();
+      const securityCode = document.getElementById("security_code").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const paymentMethods = document.querySelectorAll("input[name='payment']:checked");
+
+      // Regex patterns
+      const nameRegex = /^[A-Za-z\s]+$/;
+      const cardRegex = /^\d{13,19}$/;
+      const secCodeRegex = /^\d{3,4}$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Clear previous error messages
+      document.querySelectorAll("span").forEach(span => span.innerText = "");
+
+      // Validation checks
+      if (!nameRegex.test(firstName)) {
+        document.getElementById("fnameErr").innerText = "Invalid first name";
+        valid = false;
+      }
+
+      if (lastName && !nameRegex.test(lastName)) {
+        document.getElementById("lnameErr").innerText = "Invalid last name";
+        valid = false;
+      }
+
+      if (!cardRegex.test(cardNumber)) {
+        document.getElementById("cardErr").innerText = "Invalid card number";
+        valid = false;
+      }
+
+      if (!expDate) {
+        document.getElementById("expErr").innerText = "Expiration date is required";
+        valid = false;
+      }
+
+      if (!secCodeRegex.test(securityCode)) {
+        document.getElementById("secErr").innerText = "Invalid security code";
+        valid = false;
+      }
+
+      if (!emailRegex.test(email)) {
+        document.getElementById("emailErr").innerText = "Invalid email";
+        valid = false;
+      }
+
+      if (!address) {
+        document.getElementById("addrErr").innerText = "Address is required";
+        valid = false;
+      }
+
+      if (paymentMethods.length === 0) {
+        document.getElementById("payErr").innerText = "Please select a payment method";
+        valid = false;
+      }
+
+      if (valid) {
+        alert("Form submitted successfully!");
+        document.getElementById("paymentForm").reset();
+      }
+    }
+  </script>
 </head>
 <body>
-    <div class="bg">
-        <div class="text">
-            <form action="" method="get">
-                 <h1 class="mainheading"> Payment Section </h2>
-                 <p>Required fields are followed by *</p>
-                 <div class="input">
-                <p>
-                    First name*:
-                    <br><input type="text" name="First name*" required><br>
+  <div class="bg">
+    <div class="text">
+      <form id="paymentForm" onsubmit="validateForm(event)">
+        <h1 class="mainheading">Payment Section</h1>
+        <p>Required fields are followed by *</p>
 
-                    Last name:<br><input type="text" name="Last name"><br>
+        <p>
+          First name*:<br>
+          <input type="text" name="first_name" id="first_name" required>
+          <span id="fnameErr"></span><br>
 
-                    Card Number*:<br> <input type="number" name="card_number" id=""card_number required><br>
+          Last name:<br>
+          <input type="text" name="last_name" id="last_name">
+          <span id="lnameErr"></span><br>
 
-                    Expiration date*:<br> <input type="date" name="exp_date" id="exp_date" required><br>
+          Card Number*:<br>
+          <input type="text" name="card_number" id="card_number" required>
+          <span id="cardErr"></span><br>
 
-                    <!-- CVV :*<br><input type="password" name="CVV" id="cvv" required><br>
+          Expiration date*:<br>
+          <input type="date" name="exp_date" id="exp_date" required>
+          <span id="expErr"></span><br>
 
-                    Security Code*:<br><input type="password" name="security code" id="security code" required><br> -->
+          Security Code*:<br>
+          <input type="password" name="security_code" id="security_code" required>
+          <span id="secErr"></span><br>
 
-                    Email: <br><input type="email" name="Email" placeholder="--abc@gmail.com--"><br>
-                    
-                    <!-- Pincode:<br> <input type="number" name="pincode"> -->
-                </p>
-                </div>
+          Email:<br>
+          <input type="text" name="email" id="email" placeholder="--abc@gmail.com--">
+          <span id="emailErr"></span><br>
+        </p>
 
-                      <p class="address">Address*: <br><textarea name="address"  cols="100" rols="8" placeholder="--enter your address--" style="width: 766px; height: 86px;" required></textarea>
-                      </p>
+        <p class="address">
+          Address*: <br>
+          <textarea name="address" id="address" cols="100" rows="8" placeholder="--enter your address--" style="width: 766px; height: 86px;" required></textarea>
+          <span id="addrErr"></span>
+        </p>
 
-                    <hr>
+        <hr>
 
-                    <p>
-                        <fieldset>
-                            <legend>How would you like to pay?*</legend>
-                            Credit card <input type="radio" required>
-                            G-pay <input type="radio"required> 
-                            Mastercard <input type="radio" required>
-                        </fieldset></p>
-                        
-                       
-                        <p><input type="submit" value="Pay Now"></p>
-                        <p><input type="reset" value="Reset"></p>
-                    
-                
-            </form> 
-        </div>
+        <fieldset>
+          <legend>How would you like to pay?*</legend>
+          <label><input type="radio" name="payment" value="credit"> Credit card</label>
+          <label><input type="radio" name="payment" value="gpay"> G-pay</label>
+          <label><input type="radio" name="payment" value="mastercard"> Mastercard</label>
+          <span id="payErr"></span>
+        </fieldset>
+
+        <br>
+        <input type="submit" value="Pay Now">
+        <input type="reset" value="Reset">
+      </form>
     </div>
+  </div>
 </body>
 </html>
