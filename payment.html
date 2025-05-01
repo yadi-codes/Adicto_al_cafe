@@ -6,7 +6,8 @@
     <title>☕ Brew & Pay | Coffee Shop Checkout</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Caveat:wght@700&display=swap"
-      rel="stylesheet"/>
+      rel="stylesheet"
+    />
     <style>
       :root {
         --coffee-dark: #4b382a;
@@ -471,6 +472,59 @@
           const receipt = document.querySelector(".coffee-receipt");
           receipt.style.transform = "translateY(-20px) rotateX(10deg)";
           receipt.style.boxShadow = "0 30px 50px rgba(75, 56, 42, 0.5)";
+          const confettiContainer = document.createElement("div");
+          confettiContainer.style.position = "fixed";
+          confettiContainer.style.top = "0";
+          confettiContainer.style.left = "0";
+          confettiContainer.style.width = "100vw";
+          confettiContainer.style.height = "100vh";
+          confettiContainer.style.pointerEvents = "none";
+          confettiContainer.style.zIndex = "1000";
+          confettiContainer.style.overflow = "hidden";
+          document.body.appendChild(confettiContainer);
+
+          // Create success popup
+          const successPopup = document.createElement("div");
+          successPopup.style.position = "fixed";
+          successPopup.style.top = "50%";
+          successPopup.style.left = "50%";
+          successPopup.style.transform = "translate(-50%, -50%)";
+          successPopup.style.backgroundColor = "var(--foam)";
+          successPopup.style.padding = "30px";
+          successPopup.style.borderRadius = "15px";
+          successPopup.style.boxShadow = "0 10px 30px rgba(0,0,0,0.3)";
+          successPopup.style.zIndex = "1000";
+          successPopup.style.textAlign = "center";
+          successPopup.style.maxWidth = "80%";
+          successPopup.style.border = "3px solid var(--success)";
+          successPopup.innerHTML = `
+      <h2 style="color: var(--success); margin-bottom: 15px;">Payment Successful!</h2>
+      <p style="margin-bottom: 20px;">Your coffee is on its way! ☕</p>
+      <div style="font-size: 3rem;">🎉</div>`;
+          document.body.appendChild(successPopup);
+
+          // Coffee-themed confetti elements
+          const confettiItems = [
+            "☕",
+            "🍩",
+            "🎉",
+            "✨",
+            "🥐",
+            "🍪",
+            "🧋",
+            "☕",
+            "🍵",
+            "🥤",
+            "🍮",
+            "🍫",
+          ];
+          const colors = [
+            "#6F4E37",
+            "#A67B5B",
+            "#D4A059",
+            "#4b382a",
+            "#8B5E3B",
+          ];
 
           // Add coffee cup animation
           const coffeeCup = document.createElement("div");
@@ -484,20 +538,72 @@
           coffeeCup.style.transition = "all 1s ease";
           receipt.appendChild(coffeeCup);
 
-          setTimeout(() => {
-            coffeeCup.style.bottom = "20px";
-            coffeeCup.style.opacity = "1";
-          }, 100);
+          function createConfettiPiece() {
+            const confetti = document.createElement("div");
+            const randomItem =
+              confettiItems[Math.floor(Math.random() * confettiItems.length)];
+            confetti.innerHTML = randomItem;
+            confetti.style.position = "absolute";
+            confetti.style.fontSize = `${Math.random() * 24 + 12}px`;
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.top = `-50px`;
+            confetti.style.opacity = "0";
+            confetti.style.color =
+              colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            confetti.style.animation = `fall ${
+              Math.random() * 3 + 2
+            }s linear forwards`;
+            confetti.style.zIndex = "1000";
+            confettiContainer.appendChild(confetti);
 
-          setTimeout(() => {
-            alert("Payment successful! Your coffee is on its way. Thank you!");
-            document.getElementById("paymentForm").reset();
-            receipt.style.transform = "translateY(0) rotateX(0)";
-            receipt.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.3)";
-            coffeeCup.remove();
-          }, 1500);
+            setTimeout(() => {
+              confetti.style.opacity = "1";
+            }, 100);
+          }
+
+          // Add CSS for animations
+          const style = document.createElement("style");
+          style.innerHTML = `
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(${Math.random() * 360}deg);
+          opacity: 0;
         }
       }
+      @keyframes bounce {
+        to {
+          transform: translateY(-10px);
+        }
+      }
+    `;
+          document.head.appendChild(style);
+
+          // Create lots of confetti pieces
+          const confettiCount = 100; // Increase for more confetti
+          for (let i = 0; i < confettiCount; i++) {
+            setTimeout(createConfettiPiece, i * 50);
+            // Create some immediate confetti for instant effect
+            if (i < 20) createConfettiPiece();
+          }
+
+          // Reset form after animation
+          setTimeout(() => {
+            successPopup.remove();
+            confettiContainer.remove();
+            style.remove();
+            document.getElementById("paymentForm").reset();
+
+            // Reset receipt styling if needed
+            const receipt = document.querySelector(".coffee-receipt");
+            if (receipt) {
+              receipt.style.transform = "translateY(0) rotateX(0)";
+              receipt.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.3)";
+            }
+          }, 3000);
+        }
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const orderTotal = calculateOrderTotal(cart);
@@ -647,7 +753,7 @@
             <button type="reset" class="btn btn-secondary">
               <span>✕</span> Cancel
             </button>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" id="btn btn-primary">
               <span>✓</span> Order & Pay
             </button>
           </div>
