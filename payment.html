@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>☕ Brew & Pay | Coffee Shop Checkout</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Caveat:wght@700&display=swap"
+      rel="stylesheet"/>
+    <style>
+      :root {
+        --coffee-dark: #4b382a;
+        --coffee-medium: #6f4e37;
+        --coffee-light: #a67b5b;
+        --cream: #f3e5d8;
+        --milk: #fff9f0;
+        --foam: #fffdfa;
+        --caramel: #d4a059;
+        --error: #d72638;
+        --success: #4bb543;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80")
+          no-repeat center center fixed;
+        background-size: cover;
+        font-family: "Quicksand", sans-serif;
+        color: var(--coffee-dark);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(75, 56, 42, 0.7);
+        z-index: 0;
+      }
+
+      .coffee-receipt {
+        background: var(--milk);
+        border-radius: 15px;
+        width: 100%;
+        max-width: 800px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+        border: 2px solid var(--cream);
+        transform-style: preserve-3d;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .coffee-receipt:hover {
+        transform: translateY(-5px) rotateX(5deg);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .receipt-header {
+        background: linear-gradient(
+          to right,
+          var(--coffee-medium),
+          var(--coffee-light)
+        );
+        color: var(--foam);
+        padding: 25px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 3px dashed var(--cream);
+      }
+
+      .receipt-header::before {
+        content: "☕☕☕";
+        position: absolute;
+        top: 10px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        opacity: 0.2;
+        font-size: 1.5rem;
+      }
+
+      .receipt-header h1 {
+        font-family: "Caveat", cursive;
+        font-size: 2.8rem;
+        margin-bottom: 5px;
+        position: relative;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .receipt-header p {
+        opacity: 0.9;
+        font-size: 0.9rem;
+      }
+
+      .receipt-body {
+        padding: 30px;
+        position: relative;
+        background: repeating-linear-gradient(
+          var(--milk),
+          var(--milk) 29px,
+          var(--cream) 30px,
+          var(--cream) 30px
+        );
+        background-size: 100% 30px;
+      }
+
+      .coffee-stain {
+        position: absolute;
+        opacity: 0.1;
+        z-index: -1;
+      }
+
+      .stain-1 {
+        top: 15%;
+        right: 10%;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: var(--coffee-dark);
+        transform: rotate(30deg);
+      }
+
+      .stain-2 {
+        bottom: 20%;
+        left: 15%;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--coffee-medium);
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--coffee-dark);
+        font-size: 0.95rem;
+      }
+
+      .form-group label.required::after {
+        content: " *";
+        color: var(--error);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid var(--cream);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: var(--foam);
+        font-family: "Quicksand", sans-serif;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--caramel);
+        box-shadow: 0 0 0 3px rgba(212, 160, 89, 0.3);
+        background-color: white;
+      }
+
+      .form-control::placeholder {
+        color: var(--coffee-light);
+        opacity: 0.6;
+      }
+
+      textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+        line-height: 30px;
+        background-attachment: local;
+        background-image: linear-gradient(
+            to right,
+            var(--milk) 10px,
+            transparent 10px
+          ),
+          linear-gradient(to left, var(--milk) 10px, transparent 10px);
+        background-position: 0 0, 100% 0;
+        background-repeat: no-repeat;
+      }
+
+      .error-message {
+        color: var(--error);
+        font-size: 0.8rem;
+        margin-top: 5px;
+        display: block;
+        font-weight: 500;
+      }
+
+      .payment-options {
+        margin: 30px 0;
+      }
+
+      .payment-options legend {
+        font-weight: 700;
+        color: var(--coffee-dark);
+        padding: 0 10px;
+        font-size: 1.1rem;
+      }
+
+      .payment-methods {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+      }
+
+      .payment-method {
+        flex: 1;
+        min-width: 120px;
+      }
+
+      .payment-method input {
+        display: none;
+      }
+
+      .payment-method label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 15px;
+        background: var(--foam);
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid var(--cream);
+        font-weight: 600;
+      }
+
+      .payment-method label:hover {
+        background: white;
+        border-color: var(--caramel);
+      }
+
+      .payment-method input:checked + label {
+        background: var(--coffee-medium);
+        color: var(--foam);
+        border-color: var(--coffee-medium);
+        box-shadow: 0 5px 15px rgba(111, 78, 55, 0.3);
+      }
+
+      .button-group {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .btn {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          to right,
+          var(--coffee-medium),
+          var(--coffee-light)
+        );
+        color: var(--foam);
+        box-shadow: 0 5px 15px rgba(111, 78, 55, 0.4);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(111, 78, 55, 0.6);
+        background: linear-gradient(
+          to right,
+          var(--coffee-light),
+          var(--caramel)
+        );
+      }
+
+      .btn-secondary {
+        background: var(--foam);
+        color: var(--coffee-medium);
+        border: 2px solid var(--coffee-medium);
+      }
+
+      .btn-secondary:hover {
+        background: white;
+      }
+
+      /* Coffee Animation */
+      @keyframes steam {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-20px) scale(1.2);
+        }
+      }
+
+      .coffee-steam {
+        position: absolute;
+        top: -40px;
+        right: 30px;
+        font-size: 2rem;
+      }
+
+      .steam {
+        position: absolute;
+        opacity: 0;
+        font-size: 1.5rem;
+      }
+
+      .steam-1 {
+        right: 10px;
+        animation: steam 3s infinite;
+      }
+
+      .steam-2 {
+        right: 30px;
+        animation: steam 3s infinite 0.5s;
+      }
+
+      .steam-3 {
+        right: 50px;
+        animation: steam 3s infinite 1s;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .payment-method {
+          min-width: 100%;
+        }
+
+        .button-group {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .receipt-header h1 {
+          font-size: 2.2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .receipt-body {
+          padding: 20px;
+        }
+
+        .coffee-steam {
+          display: none;
+        }
+      }
+    </style>
+    <script>
+      function validateForm(event) {
+        event.preventDefault();
+
+        let valid = true;
+
+        // Get values
+        const firstName = document.getElementById("first_name").value.trim();
+        const lastName = document.getElementById("last_name").value.trim();
+        const cardNumber = document.getElementById("card_number").value.trim();
+        const expDate = document.getElementById("exp_date").value.trim();
+        const securityCode = document
+          .getElementById("security_code")
+          .value.trim();
+        const email = document.getElementById("email").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const paymentMethods = document.querySelectorAll(
+          "input[name='payment']:checked"
+        );
+
+        // Regex patterns
+        const nameRegex = /^[A-Za-z\s]+$/;
+        const cardRegex = /^\d{13,19}$/;
+        const secCodeRegex = /^\d{3,4}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Clear previous error messages
+        document
+          .querySelectorAll(".error-message")
+          .forEach((span) => (span.innerText = ""));
+
+        // Validation checks
+        if (!nameRegex.test(firstName)) {
+          document.getElementById("fnameErr").innerText =
+            "Please enter a valid first name";
+          valid = false;
+        }
+
+        if (lastName && !nameRegex.test(lastName)) {
+          document.getElementById("lnameErr").innerText =
+            "Please enter a valid last name";
+          valid = false;
+        }
+
+        if (!cardRegex.test(cardNumber)) {
+          document.getElementById("cardErr").innerText =
+            "Card number must be 13-19 digits";
+          valid = false;
+        }
+
+        if (!expDate) {
+          document.getElementById("expErr").innerText =
+            "Please select expiration date";
+          valid = false;
+        }
+
+        if (!secCodeRegex.test(securityCode)) {
+          document.getElementById("secErr").innerText =
+            "Security code must be 3-4 digits";
+          valid = false;
+        }
+
+        if (!emailRegex.test(email)) {
+          document.getElementById("emailErr").innerText =
+            "Please enter a valid email";
+          valid = false;
+        }
+
+        if (!address) {
+          document.getElementById("addrErr").innerText =
+            "Please enter your address";
+          valid = false;
+        }
+
+        if (paymentMethods.length === 0) {
+          document.getElementById("payErr").innerText =
+            "Please select a payment method";
+          valid = false;
+        }
+
+        if (valid) {
+          // Show success animation
+          const receipt = document.querySelector(".coffee-receipt");
+          receipt.style.transform = "translateY(-20px) rotateX(10deg)";
+          receipt.style.boxShadow = "0 30px 50px rgba(75, 56, 42, 0.5)";
+
+          // Add coffee cup animation
+          const coffeeCup = document.createElement("div");
+          coffeeCup.innerHTML = "☕";
+          coffeeCup.style.position = "absolute";
+          coffeeCup.style.bottom = "-50px";
+          coffeeCup.style.right = "50%";
+          coffeeCup.style.transform = "translateX(50%)";
+          coffeeCup.style.fontSize = "3rem";
+          coffeeCup.style.opacity = "0";
+          coffeeCup.style.transition = "all 1s ease";
+          receipt.appendChild(coffeeCup);
+
+          setTimeout(() => {
+            coffeeCup.style.bottom = "20px";
+            coffeeCup.style.opacity = "1";
+          }, 100);
+
+          setTimeout(() => {
+            alert("Payment successful! Your coffee is on its way. Thank you!");
+            document.getElementById("paymentForm").reset();
+            receipt.style.transform = "translateY(0) rotateX(0)";
+            receipt.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.3)";
+            coffeeCup.remove();
+          }, 1500);
+        }
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const orderTotal = calculateOrderTotal(cart);
+
+        // Display order summary
+        document.getElementById("order-summary").innerHTML = `
+        <h3>Order Summary</h3>
+        ${cart
+          .map(
+            (item) => `
+            <div class="order-item">
+                <span>${item.name} x ${item.quantity}</span>
+                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+        `
+          )
+          .join("")}
+        <div class="order-total">
+            <strong>Total: $${orderTotal.toFixed(2)}</strong>
+        </div>
+    `;
+
+        function calculateOrderTotal(cart) {
+          const subtotal = cart.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          const tax = subtotal * 0.1; // 10% tax
+          return subtotal + tax;
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="coffee-receipt">
+      <div class="receipt-header">
+        <h1>Brew & Pay</h1>
+        <p>Your coffee adventure awaits - complete your order</p>
+        <div class="coffee-steam">
+          <div class="steam steam-1">♨</div>
+          <div class="steam steam-2">♨</div>
+          <div class="steam steam-3">♨</div>
+        </div>
+      </div>
+
+      <div class="receipt-body">
+        <div class="coffee-stain stain-1"></div>
+        <div class="coffee-stain stain-2"></div>
+
+        <form id="paymentForm" onsubmit="validateForm(event)">
+          <div class="form-group">
+            <label for="first_name" class="required">First Name</label>
+            <input
+              type="text"
+              id="first_name"
+              class="form-control"
+              placeholder="e.g. Espresso"
+            />
+            <span id="fnameErr" class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input
+              type="text"
+              id="last_name"
+              class="form-control"
+              placeholder="e.g. Macchiato"
+            />
+            <span id="lnameErr" class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="card_number" class="required">Card Number</label>
+            <input
+              type="text"
+              id="card_number"
+              class="form-control"
+              placeholder="•••• •••• •••• ••••"
+            />
+            <span id="cardErr" class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="exp_date" class="required">Expiration Date</label>
+            <input type="date" id="exp_date" class="form-control" />
+            <span id="expErr" class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="security_code" class="required">Security Code</label>
+            <input
+              type="password"
+              id="security_code"
+              class="form-control"
+              placeholder="•••"
+            />
+            <span id="secErr" class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              class="form-control"
+              placeholder="your@coffee.lover"
+            />
+            <span id="emailErr" class="error-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="address" class="required">Delivery Address</label>
+            <textarea
+              id="address"
+              class="form-control"
+              placeholder="Where should we deliver your coffee?"
+            ></textarea>
+            <span id="addrErr" class="error-message"></span>
+          </div>
+
+          <fieldset class="payment-options">
+            <legend>Payment Method</legend>
+            <span id="payErr" class="error-message"></span>
+            <div class="payment-methods">
+              <div class="payment-method">
+                <input type="radio" name="payment" id="credit" value="credit" />
+                <label for="credit">💳 Coffee Card</label>
+              </div>
+              <div class="payment-method">
+                <input type="radio" name="payment" id="gpay" value="gpay" />
+                <label for="gpay">📱 Bean Pay</label>
+              </div>
+              <div class="payment-method">
+                <input
+                  type="radio"
+                  name="payment"
+                  id="mastercard"
+                  value="mastercard"
+                />
+                <label for="mastercard">☕ Cash</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="button-group">
+            <button type="reset" class="btn btn-secondary">
+              <span>✕</span> Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <span>✓</span> Order & Pay
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -3,28 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cafe Menu</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="menuscript.js" defer></script>
 </head>
 <body>
     <!-- Navigation Bar -->
     <header class="menu-header">
         <h1>Our Menu</h1>
-        <a href="index.html" class="home-icon">
-            <img src="favicon/favicon-16x16.png" alt="Home">
-        </a>
-        
+        <div class="header-icons">
+            <a href="index.html" class="home-icon">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEwIDIwdi02aDR2Nmg1di04aDNMMTIgMyAyIDloM3Y4eiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=" alt="Home">
+            </a>
+            <a href="cart.html" class="cart-link">
+                🛒
+                <span id="cart-bubble" class="cart-bubble">0</span>
+            </a>
+        </div>
     </header>
 
     <!-- Menu Filter Buttons -->
-    <div class="menu">
-        <button class="filter-btn" data-category="all">All</button>
-        <button class="filter-btn" data-category="coffee">Coffee</button>
-        <button class="filter-btn" data-category="tea">Tea</button>
-        <button class="filter-btn" data-category="dessert">Desserts</button>
+    <div class="menu-filters">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="coffee">Coffee</button>
+            <button class="filter-btn" data-category="tea">Tea</button>
+            <button class="filter-btn" data-category="dessert">Desserts</button>
+        </div>
         
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Search here...">
@@ -35,88 +43,84 @@
     <div class="menu-items">
         <div class="item" data-category="coffee">
             <img src="images/espresso.jpg" alt="Espresso">
-            <h3>Espresso</h3>
-            <p>Rich and strong shot of espresso.</p>
-            <span class="price">$10.99</span>
-            <button class="add-to-cart" data-name="Espresso" data-price="10.99">Add to Cart</button>
+            <div class="item-content">
+                <h3>Espresso</h3>
+                <p>Rich and strong shot of espresso.</p>
+                <span class="price">$10.99</span>
+                <button class="add-to-cart" data-name="Espresso" data-price="10.99" data-image="images/espresso.jpg">Add to Order</button>
+            </div>
         </div>
     
         <div class="item" data-category="coffee">
             <img src="images/cappuccino.jpg" alt="Cappuccino">
-            <h3>Cappuccino</h3>
-            <p>Creamy cappuccino with frothy milk.</p>
-            <span class="price">$12.99</span>
-            <button class="add-to-cart" data-name="Cappuccino" data-price="12.99">Add to Cart</button>
+            <div class="item-content">
+                <h3>Cappuccino</h3>
+                <p>Creamy cappuccino with frothy milk.</p>
+                <span class="price">$12.99</span>
+                <button class="add-to-cart" data-name="Cappuccino" data-price="12.99" data-image="images/cappuccino.jpg">Add to Order</button>
+            </div>
         </div>
     
         <div class="item" data-category="tea">
             <img src="images/green-tea.jpg" alt="Green Tea">
-            <h3>Green Tea</h3>
-            <p>Refreshing and healthy green tea.</p>
-            <span class="price">$8.99</span>
-            <button class="add-to-cart" data-name="Green Tea" data-price="8.99">Add to Cart</button>
+            <div class="item-content">
+                <h3>Green Tea</h3>
+                <p>Refreshing and healthy green tea.</p>
+                <span class="price">$8.99</span>
+                <button class="add-to-cart" data-name="Green Tea" data-price="8.99" data-image="images/green-tea.jpg">Add to Order</button>
+            </div>
         </div>
     
         <div class="item" data-category="tea">
             <img src="images/hibiscus-tea.jpg" alt="Hibiscus Iced Tea">
-            <h3>Hibiscus Iced Tea</h3>
-            <p>Sweet and tangy iced hibiscus tea.</p>
-            <span class="price">$9.99</span>
-            <button class="add-to-cart" data-name="Hibiscus Iced Tea" data-price="9.99">Add to Cart</button>
+            <div class="item-content">
+                <h3>Hibiscus Iced Tea</h3>
+                <p>Sweet and tangy iced hibiscus tea.</p>
+                <span class="price">$9.99</span>
+                <button class="add-to-cart" data-name="Hibiscus Iced Tea" data-price="9.99" data-image="images/hibiscus-tea.jpg">Add to Order</button>
+            </div>
         </div>
     
         <div class="item" data-category="dessert">
             <img src="images/cheesecake.jpg" alt="Cheesecake">
-            <h3>Cheesecake</h3>
-            <p>Rich and creamy cheesecake.</p>
-            <span class="price">$14.99</span>
-            <button class="add-to-cart" data-name="Cheesecake" data-price="14.99">Add to Cart</button>
+            <div class="item-content">
+                <h3>Cheesecake</h3>
+                <p>Rich and creamy cheesecake.</p>
+                <span class="price">$14.99</span>
+                <button class="add-to-cart" data-name="Cheesecake" data-price="14.99" data-image="images/cheesecake.jpg">Add to Order</button>
+            </div>
         </div>
     
         <div class="item" data-category="dessert">
             <img src="images/donut.jpg" alt="Donut">
-            <h3>Donut</h3>
-            <p>Soft and delicious glazed donut.</p>
-            <span class="price">$7.99</span>
-            <button class="add-to-cart" data-name="Donut" data-price="7.99">Add to Cart</button>
+            <div class="item-content">
+                <h3>Donut</h3>
+                <p>Soft and delicious glazed donut.</p>
+                <span class="price">$7.99</span>
+                <button class="add-to-cart" data-name="Donut" data-price="7.99" data-image="images/donut.jpg">Add to Order</button>
+            </div>
         </div>
     
         <!-- Bestseller Items -->
         <div class="item bestseller" data-category="coffee">
             <img src="images/Cold brew black.webp" alt="Cold Black Coffee">
-            <h3>Cold Black Coffee</h3>
-            <p>Refreshing cold brew coffee.</p>
-            <span class="price">$10.99</span>
-            <button class="add-to-cart" data-name="Cold Black Coffee" data-price="10.99">Add to Cart</button>
+            <div class="item-content">
+                <h3>Cold Black Coffee</h3>
+                <p>Refreshing cold brew coffee.</p>
+                <span class="price">$10.99</span>
+                <button class="add-to-cart" data-name="Cold Black Coffee" data-price="10.99" data-image="images/Cold brew black.webp">Add to Order</button>
+            </div>
         </div>
     
         <div class="item bestseller" data-category="tea">
             <img src="images/pinkk drink (1).jpg" alt="Strawberry Drink">
-            <h3>Strawberry Drink</h3>
-            <p>Delicious pink strawberry delight.</p>
-            <span class="price">$14.99</span>
-            <button class="add-to-cart" data-name="Strawberry Drink" data-price="14.99">Add to Cart</button>
+            <div class="item-content">
+                <h3>Strawberry Drink</h3>
+                <p>Delicious pink strawberry delight.</p>
+                <span class="price">$14.99</span>
+                <button class="add-to-cart" data-name="Strawberry Drink" data-price="14.99" data-image="images/pinkk drink (1).jpg">Add to Order</button>
+            </div>
         </div>
     </div>
-
-    <section id="cart">
-        <h2>Your Cart</h2>
-        <ul id="cart-items"></ul>
-        <p>Total: $<span id="cart-total">0.00</span></p>
-        <button id="checkout-btn">Checkout</button>
-        <span id="cart-counter">0</span>
-
-    </section>
-    
-    <section id="billing-section" style="display: none;">
-        <h2>Billing Details</h2>
-        <form id="billing-form">
-            <input type="text" placeholder="Full Name" required>
-            <input type="text" placeholder="Address" required>
-            <input type="email" placeholder="Email" required>
-            <button type="submit">Place Order</button>
-        </form>
-    </section>
-    
 </body>
 </html>
